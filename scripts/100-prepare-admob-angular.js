@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
 var fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    Q = require('q');
 
 module.exports = function (context) {
-    var deferred = new context.requireCordovaModule('q').defer(),
+    var deferred = new Q.defer(),
         src = path.resolve(context.opts.plugin.dir, 'www'),
         www = path.resolve(context.opts.projectRoot, 'www'),
         lib = path.resolve(context.opts.projectRoot, 'www', 'lib'),
@@ -58,7 +59,7 @@ function showErrorNotice(context, err) {
 }
 
 function ensureExists(context, path, mask) {
-    var deferred = new context.requireCordovaModule('q').defer();
+    var deferred = new Q.defer();
     if (typeof mask == 'function') { // allow the `mask` parameter to be optional
         cb = mask;
         mask = 0777;
