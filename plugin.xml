@@ -12,7 +12,7 @@
     <engine name="cordova" version=">=4.0.0" />
   </engines>
 
-  <dependency id="cordova-connectivity-monitor" />
+  <!--  <dependency id="cordova-connectivity-monitor" /> -->
 
   <js-module src="www/admob.js" name="AdMobAds">
     <clobbers target="window.admob" />
@@ -38,11 +38,8 @@
       <uses-permission android:name="android.permission.INTERNET" />
       <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     </config-file>
-    <!--config-file target="res/values/strings.xml" parent="/*">
-      <string name="banid">ca-app-pub-4710420345692775/1820653839</string>
-      <string name="intid">ca-app-pub-4710420345692775/4287631547</string>
-    </config-file-->
-	  <framework src="com.google.android.gms:play-services-ads:15.0.+" />
+	
+    <framework src="com.google.android.gms:play-services-ads:15.0.+" />
 
     <source-file src="src/android/AdMobAds.java" target-dir="src/com/appfeel/cordova/admob" />
     <source-file src="src/android/AdMobAdsAdListener.java" target-dir="src/com/appfeel/cordova/admob" />
@@ -67,18 +64,6 @@
 
     <!-- Google AdMob framework -->
     <dependency id="cordova-libgoogleadmobads" url="https://github.com/appfeel/google-iosadmobads" commit="master"/>
-    
-    <!--config-file target="*-Info.plist" parent="CFBundleURLTypes">
-      <array>
-        <dict>
-          <key>bid</key>
-          <string>ca-app-pub-4710420345692775/3901674654</string>
-        </dict>
-        <dict>
-          <key>iid</key>
-          <string>ca-app-pub-4710420345692775/6171558851</string>
-        </dict>
-      </array>
-    </config-file-->
+
   </platform>
 </plugin>
