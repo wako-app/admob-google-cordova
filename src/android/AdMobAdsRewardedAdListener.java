@@ -38,12 +38,10 @@ public class AdMobAdsRewardedAdListener implements RewardedVideoAdListener {
 
     private String adType = "";
     private AdMobAds admobAds;
-    private boolean isBackFill = false;
 
-    public AdMobAdsRewardedAdListener(String adType, AdMobAds admobAds, boolean isBackFill) {
+    public AdMobAdsRewardedAdListener(String adType, AdMobAds admobAds) {
         this.adType = adType;
         this.admobAds = admobAds;
-        this.isBackFill = isBackFill;
     }
 
     @Override
@@ -52,7 +50,8 @@ public class AdMobAdsRewardedAdListener implements RewardedVideoAdListener {
             @Override
             public void run() {
                 Log.d(AdMobAds.ADMOBADS_LOGTAG, adType + ": rewarded");
-                String event = String.format("javascript:cordova.fireDocumentEvent(admob.events.onRewardedAd, { 'adType': '%s' });", adType);
+                String event = String.format(
+                        "javascript:cordova.fireDocumentEvent(admob.events.onRewardedAd, { 'adType': '%s' });", adType);
                 admobAds.webView.loadUrl(event);
             }
         });
@@ -64,7 +63,9 @@ public class AdMobAdsRewardedAdListener implements RewardedVideoAdListener {
             @Override
             public void run() {
                 Log.d(AdMobAds.ADMOBADS_LOGTAG, adType + ": left application");
-                String event = String.format("javascript:cordova.fireDocumentEvent(admob.events.onAdLeftApplication, { 'adType': '%s' });", adType);
+                String event = String.format(
+                        "javascript:cordova.fireDocumentEvent(admob.events.onAdLeftApplication, { 'adType': '%s' });",
+                        adType);
                 admobAds.webView.loadUrl(event);
             }
         });
@@ -76,7 +77,8 @@ public class AdMobAdsRewardedAdListener implements RewardedVideoAdListener {
             @Override
             public void run() {
                 Log.d(AdMobAds.ADMOBADS_LOGTAG, adType + ": ad closed after clicking on it");
-                String event = String.format("javascript:cordova.fireDocumentEvent(admob.events.onAdClosed, { 'adType': '%s' });", adType);
+                String event = String.format(
+                        "javascript:cordova.fireDocumentEvent(admob.events.onAdClosed, { 'adType': '%s' });", adType);
                 admobAds.webView.loadUrl(event);
             }
         });
@@ -84,20 +86,18 @@ public class AdMobAdsRewardedAdListener implements RewardedVideoAdListener {
 
     @Override
     public void onRewardedVideoAdFailedToLoad(int errorCode) {
-        if (this.isBackFill) {
-            final int code = errorCode;
-            admobAds.cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    String reason = getErrorReason(code);
-                    Log.d(AdMobAds.ADMOBADS_LOGTAG, adType + ": failed to load ad (" + reason + ")");
-                    String event = String.format("javascript:cordova.fireDocumentEvent(admob.events.onAdFailedToLoad, { 'adType': '%s', 'error': %d, 'reason': '%s' });", adType, code, reason);
-                    admobAds.webView.loadUrl(event);
-                }
-            });
-        } else {
-            admobAds.tryBackfill(adType);
-        }
+        final int code = errorCode;
+        admobAds.cordova.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String reason = getErrorReason(code);
+                Log.d(AdMobAds.ADMOBADS_LOGTAG, adType + ": failed to load ad (" + reason + ")");
+                String event = String.format(
+                        "javascript:cordova.fireDocumentEvent(admob.events.onAdFailedToLoad, { 'adType': '%s', 'error': %d, 'reason': '%s' });",
+                        adType, code, reason);
+                admobAds.webView.loadUrl(event);
+            }
+        });
     }
 
     /**
@@ -129,7 +129,8 @@ public class AdMobAdsRewardedAdListener implements RewardedVideoAdListener {
             @Override
             public void run() {
                 Log.d(AdMobAds.ADMOBADS_LOGTAG, adType + ": ad loaded");
-                String event = String.format("javascript:cordova.fireDocumentEvent(admob.events.onAdLoaded, { 'adType': '%s' });", adType);
+                String event = String.format(
+                        "javascript:cordova.fireDocumentEvent(admob.events.onAdLoaded, { 'adType': '%s' });", adType);
                 admobAds.webView.loadUrl(event);
             }
         });
@@ -142,7 +143,8 @@ public class AdMobAdsRewardedAdListener implements RewardedVideoAdListener {
             @Override
             public void run() {
                 Log.d(AdMobAds.ADMOBADS_LOGTAG, adType + ": ad opened");
-                String event = String.format("javascript:cordova.fireDocumentEvent(admob.events.onAdOpened, { 'adType': '%s' });", adType);
+                String event = String.format(
+                        "javascript:cordova.fireDocumentEvent(admob.events.onAdOpened, { 'adType': '%s' });", adType);
                 admobAds.webView.loadUrl(event);
             }
         });
@@ -154,7 +156,9 @@ public class AdMobAdsRewardedAdListener implements RewardedVideoAdListener {
             @Override
             public void run() {
                 Log.d(AdMobAds.ADMOBADS_LOGTAG, adType + ": ad video started");
-                String event = String.format("javascript:cordova.fireDocumentEvent(admob.events.onRewardedAdVideoStarted, { 'adType': '%s' });", adType);
+                String event = String.format(
+                        "javascript:cordova.fireDocumentEvent(admob.events.onRewardedAdVideoStarted, { 'adType': '%s' });",
+                        adType);
                 admobAds.webView.loadUrl(event);
             }
         });
@@ -166,7 +170,9 @@ public class AdMobAdsRewardedAdListener implements RewardedVideoAdListener {
             @Override
             public void run() {
                 Log.d(AdMobAds.ADMOBADS_LOGTAG, adType + ": ad video completed");
-                String event = String.format("javascript:cordova.fireDocumentEvent(admob.events.onRewardedAdVideoCompleted, { 'adType': '%s' });", adType);
+                String event = String.format(
+                        "javascript:cordova.fireDocumentEvent(admob.events.onRewardedAdVideoCompleted, { 'adType': '%s' });",
+                        adType);
                 admobAds.webView.loadUrl(event);
             }
         });

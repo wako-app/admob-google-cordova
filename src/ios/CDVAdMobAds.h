@@ -37,7 +37,6 @@
 #import <GoogleMobileAds/GADRewardBasedVideoAdDelegate.h>
 #import "CDVAdMobAdsAdListener.h"
 #import "CDVAdMobAdsRewardedAdListener.h"
-#import "AppFeelReachability.h"
 
 #pragma mark - JS requestAd options
 
@@ -49,42 +48,39 @@
 
 #pragma mark AdMobAds Plugin
 
-@interface CDVAdMobAds : CDVPlugin {
+@interface CDVAdMobAds : CDVPlugin
+{
 }
 
-@property (assign) BOOL isInterstitialAvailable;
-@property (assign) BOOL isRewardedAvailable;
+@property(assign) BOOL isInterstitialAvailable;
+@property(assign) BOOL isRewardedAvailable;
 
-@property (nonatomic, retain) GADBannerView *bannerView;
-@property (nonatomic, retain) GADInterstitial *interstitialView;
-@property (nonatomic, retain) CDVAdMobAdsAdListener *adsListener;
-@property (nonatomic, retain) CDVAdMobAdsAdListener *backFillAdsListener;
-@property (nonatomic, retain) CDVAdMobAdsRewardedAdListener *rewardedAdsListener;
-@property (nonatomic, retain) CDVAdMobAdsRewardedAdListener *backfillRewardedAdsListener;
+@property(nonatomic, retain) GADBannerView *bannerView;
+@property(nonatomic, retain) GADInterstitial *interstitialView;
+@property(nonatomic, retain) CDVAdMobAdsAdListener *adsListener;
+@property(nonatomic, retain) CDVAdMobAdsRewardedAdListener *rewardedAdsListener;
 
-@property (nonatomic, retain) NSString* publisherId;
-@property (nonatomic, retain) NSString* interstitialAdId;
-@property (nonatomic, retain) NSString* rewardedAdId;
-@property (nonatomic, retain) NSString* tappxId;
+@property(nonatomic, retain) NSString *publisherId;
+@property(nonatomic, retain) NSString *interstitialAdId;
+@property(nonatomic, retain) NSString *rewardedAdId;
+@property(nonatomic, retain) NSString *tappxId;
 
-@property (assign) GADAdSize adSize;
-@property (assign) BOOL isBannerAtTop;
-@property (assign) BOOL isBannerOverlap;
-@property (assign) BOOL isOffsetStatusBar;
+@property(assign) GADAdSize adSize;
+@property(assign) BOOL isBannerAtTop;
+@property(assign) BOOL isBannerOverlap;
+@property(assign) BOOL isOffsetStatusBar;
 
-@property (assign) BOOL isTesting;
-@property (nonatomic, retain) NSDictionary* adExtras;
+@property(assign) BOOL isTesting;
+@property(nonatomic, retain) NSDictionary *adExtras;
 
-@property (assign) BOOL isBannerVisible;
-@property (assign) BOOL isBannerInitialized;
-@property (assign) BOOL isBannerShow;
-@property (assign) BOOL isBannerAutoShow;
-@property (assign) BOOL isInterstitialAutoShow;
-@property (assign) BOOL isRewardedAutoShow;
-@property (assign) BOOL isGo2TappxInInterstitialBackfill;
-@property (assign) BOOL isGo2TappxInBannerBackfill;
-@property (assign) BOOL hasTappx;
-@property (assign) double tappxShare;
+@property(assign) BOOL isBannerVisible;
+@property(assign) BOOL isBannerInitialized;
+@property(assign) BOOL isBannerShow;
+@property(assign) BOOL isBannerAutoShow;
+@property(assign) BOOL isInterstitialAutoShow;
+@property(assign) BOOL isRewardedAutoShow;
+@property(assign) BOOL hasTappx;
+@property(assign) double tappxShare;
 
 - (void)setOptions:(CDVInvokedUrlCommand *)command;
 
@@ -98,12 +94,8 @@
 - (void)requestRewardedAd:(CDVInvokedUrlCommand *)command;
 - (void)showRewardedAd:(CDVInvokedUrlCommand *)command;
 
-- (void)onBannerAd:(GADBannerView *)adView adListener:(CDVAdMobAdsAdListener *)adListener ;
+- (void)onBannerAd:(GADBannerView *)adView adListener:(CDVAdMobAdsAdListener *)adListener;
 - (void)onInterstitialAd:(GADInterstitial *)interstitial adListener:(CDVAdMobAdsAdListener *)adListener;
 - (void)onRewardedAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd adListener:(CDVAdMobAdsRewardedAdListener *)adListener;
-
-- (void)tryToBackfillBannerAd;
-- (void)tryToBackfillInterstitialAd;
-- (void)tryToBackfillRewardedAd;
 
 @end

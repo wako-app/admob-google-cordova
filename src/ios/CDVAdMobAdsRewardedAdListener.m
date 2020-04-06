@@ -37,13 +37,11 @@
 @implementation CDVAdMobAdsRewardedAdListener
 
 @synthesize adMobAds;
-@synthesize isBackFill;
 
-- (instancetype)initWithAdMobAds: (CDVAdMobAds *)originalAdMobAds andIsBackFill: (BOOL)andIsBackFill {
+- (instancetype)initWithAdMobAds: (CDVAdMobAds *)originalAdMobAds {
     self = [super init];
     if (self) {
         adMobAds = originalAdMobAds;
-        isBackFill = andIsBackFill;
     }
     return self;
 }
@@ -103,20 +101,16 @@
 }
 
 - (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd didFailToLoadWithError:(NSError *)error {
-    if (isBackFill) {
-        adMobAds.isRewardedAvailable = false;
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            NSString *jsString =
-            @"setTimeout(function (){ cordova.fireDocumentEvent(admob.events.onAdFailedToLoad, "
-            @"{ 'adType' : 'rewarded', 'error': %ld, 'reason': '%@' }); }, 1);";
-            [adMobAds.commandDelegate evalJs:[NSString stringWithFormat:jsString,
-                                              (long)error.code,
-                                              [self __getErrorReason:error.code]]];
-        }];
-    } else {
-        [adMobAds tryToBackfillRewardedAd];
-    }
-}
+    adMobAds.isRewardedAvailable = false;
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        NSString *jsString =
+        @"setTimeout(function (){ cordova.fireDocumentEvent(admob.events.onAdFailedToLoad, "
+        @"{ 'adType' : 'rewarded', 'error': %ld, 'reason': '%@' }); }, 1);";
+        [adMobAds.commandDelegate evalJs:[NSString stringWithFormat:jsString,
+                                          (long)error.code,
+                                          [self __getErrorReason:error.code]]];
+    }];
+} 
 
 - (NSString *) __getErrorReason:(NSInteger) errorCode {
     switch (errorCode) {

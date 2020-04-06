@@ -31,14 +31,13 @@
 
 @class CDVAdMobAds;
 
-@interface CDVAdMobAdsRewardedAdListener : NSObject <GADRewardBasedVideoAdDelegate> {
-    
+@interface CDVAdMobAdsRewardedAdListener : NSObject <GADRewardBasedVideoAdDelegate>
+{
 }
 
-@property (nonatomic, retain) CDVAdMobAds *adMobAds;
-@property (assign) BOOL isBackFill;
+@property(nonatomic, retain) CDVAdMobAds *adMobAds;
 
-- (instancetype)initWithAdMobAds: (CDVAdMobAds *)originalAdMobAds andIsBackFill: (BOOL)andIsBackFill;
-- (void)rewardBasedVideoAdDidFailedToShow:(GADRewardBasedVideoAd *) rewarded;
+@@- (instancetype)initWithAdMobAds:(CDVAdMobAds *)originalAdMobAds;
+- (void)rewardBasedVideoAdDidFailedToShow:(GADRewardBasedVideoAd *)rewarded;
 
 @end

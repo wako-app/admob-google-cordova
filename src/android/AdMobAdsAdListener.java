@@ -36,12 +36,10 @@ import com.google.android.gms.ads.AdRequest;
 public class AdMobAdsAdListener extends AdListener {
     private String adType = "";
     private AdMobAds admobAds;
-    private boolean isBackFill = false;
 
-    public AdMobAdsAdListener(String adType, AdMobAds admobAds, boolean isBackFill) {
+    public AdMobAdsAdListener(String adType, AdMobAds admobAds) {
         this.adType = adType;
         this.admobAds = admobAds;
-        this.isBackFill = isBackFill;
     }
 
     @Override
@@ -51,7 +49,8 @@ public class AdMobAdsAdListener extends AdListener {
             @Override
             public void run() {
                 Log.d(AdMobAds.ADMOBADS_LOGTAG, adType + ": ad loaded");
-                String event = String.format("javascript:cordova.fireDocumentEvent(admob.events.onAdLoaded, { 'adType': '%s' });", adType);
+                String event = String.format(
+                        "javascript:cordova.fireDocumentEvent(admob.events.onAdLoaded, { 'adType': '%s' });", adType);
                 admobAds.webView.loadUrl(event);
             }
         });
@@ -59,20 +58,18 @@ public class AdMobAdsAdListener extends AdListener {
 
     @Override
     public void onAdFailedToLoad(int errorCode) {
-        if (this.isBackFill) {
-            final int code = errorCode;
-            admobAds.cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    String reason = getErrorReason(code);
-                    Log.d(AdMobAds.ADMOBADS_LOGTAG, adType + ": failed to load ad (" + reason + ")");
-                    String event = String.format("javascript:cordova.fireDocumentEvent(admob.events.onAdFailedToLoad, { 'adType': '%s', 'error': %d, 'reason': '%s' });", adType, code, reason);
-                    admobAds.webView.loadUrl(event);
-                }
-            });
-        } else {
-            admobAds.tryBackfill(adType);
-        }
+        final int code = errorCode;
+        admobAds.cordova.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String reason = getErrorReason(code);
+                Log.d(AdMobAds.ADMOBADS_LOGTAG, adType + ": failed to load ad (" + reason + ")");
+                String event = String.format(
+                        "javascript:cordova.fireDocumentEvent(admob.events.onAdFailedToLoad, { 'adType': '%s', 'error': %d, 'reason': '%s' });",
+                        adType, code, reason);
+                admobAds.webView.loadUrl(event);
+            }
+        });
     }
 
     /**
@@ -104,7 +101,8 @@ public class AdMobAdsAdListener extends AdListener {
             @Override
             public void run() {
                 Log.d(AdMobAds.ADMOBADS_LOGTAG, adType + ": ad opened");
-                String event = String.format("javascript:cordova.fireDocumentEvent(admob.events.onAdOpened, { 'adType': '%s' });", adType);
+                String event = String.format(
+                        "javascript:cordova.fireDocumentEvent(admob.events.onAdOpened, { 'adType': '%s' });", adType);
                 admobAds.webView.loadUrl(event);
             }
         });
@@ -116,7 +114,9 @@ public class AdMobAdsAdListener extends AdListener {
             @Override
             public void run() {
                 Log.d(AdMobAds.ADMOBADS_LOGTAG, adType + ": left application");
-                String event = String.format("javascript:cordova.fireDocumentEvent(admob.events.onAdLeftApplication, { 'adType': '%s' });", adType);
+                String event = String.format(
+                        "javascript:cordova.fireDocumentEvent(admob.events.onAdLeftApplication, { 'adType': '%s' });",
+                        adType);
                 admobAds.webView.loadUrl(event);
             }
         });
@@ -128,7 +128,8 @@ public class AdMobAdsAdListener extends AdListener {
             @Override
             public void run() {
                 Log.d(AdMobAds.ADMOBADS_LOGTAG, adType + ": ad closed after clicking on it");
-                String event = String.format("javascript:cordova.fireDocumentEvent(admob.events.onAdClosed, { 'adType': '%s' });", adType);
+                String event = String.format(
+                        "javascript:cordova.fireDocumentEvent(admob.events.onAdClosed, { 'adType': '%s' });", adType);
                 admobAds.webView.loadUrl(event);
             }
         });
