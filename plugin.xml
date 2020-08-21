@@ -63,7 +63,7 @@
     <source-file src="src/ios/CDVAdMobAdsRewardedAdListener.m" />
 
     <!-- Google AdMob framework -->
-    <dependency id="cordova-wako-libgoogleadmobads" url="https://github.com/wako-app/google-iosadmobads" commit="master"/>
+    <dependency id="cordova-wako-libgoogleadmobads" url="https://github.com/wako-app/google-iosadmobads.git" commit="master"/>
 
   </platform>
 </plugin>
