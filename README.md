@@ -35,11 +35,11 @@ $ npm cache clear
 $ cordova plugin add cordova-admob
 ```
 
-Sometimes removing the plugin causes an error (it's been reported to cordova https://issues.apache.org/jira/browse/CB-12083). If that happens, remove first `cordova-libgoogleadmobads` manually:
+Sometimes removing the plugin causes an error (it's been reported to cordova https://issues.apache.org/jira/browse/CB-12083). If that happens, remove first `cordova-wako-libgoogleadmobads` manually:
 
 
 ```
-$ rm plugins/cordova-libgoogleadmobads/ -rf
+$ rm plugins/cordova-wako-libgoogleadmobads/ -rf
 $ cordova plugin rm cordova-admob
 $ npm cache clear
 $ cordova plugin add cordova-admob
