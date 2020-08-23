@@ -39,7 +39,7 @@
       <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     </config-file>
 	
-    <framework src="com.google.android.gms:play-services-ads:19.3.+" />
+    <framework src="com.google.android.gms:play-services-ads:17.0.+" />
 
     <source-file src="src/android/AdMobAds.java" target-dir="src/com/appfeel/cordova/admob" />
     <source-file src="src/android/AdMobAdsAdListener.java" target-dir="src/com/appfeel/cordova/admob" />
